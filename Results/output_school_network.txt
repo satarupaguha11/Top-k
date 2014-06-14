@@ -1,0 +1,25 @@
+number of nodes 236 number of edges 5899
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 236
+number of black nodes 1 number of grey nodes 236
+1.34597992897
+number of nodes 236 number of edges 5899
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 236
+number of black nodes 1 number of grey nodes 236
+1.3890581131
+number of nodes 236 number of edges 5899
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 236
+number of black nodes 1 number of grey nodes 236
+1.33282089233
+number of nodes 236 number of edges 5899
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 236
+number of black nodes 1 number of grey nodes 236
+1.46243715286
+number of nodes 236 number of edges 5899
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 236
+number of black nodes 1 number of grey nodes 236
+1.50818395615

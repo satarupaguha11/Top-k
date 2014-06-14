@@ -1,0 +1,41 @@
+Disconnected k-power graph run on geom.net
+------------------------------------------
+k=1
+number of nodes 3621 number of edges 9461
+number of edges having fractional weight 0
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 3621
+number of black nodes 649 number of grey nodes 3621
+Time=58.4104440212
+
+k=2
+number of nodes 3621 number of edges 9461
+number of edges having fractional weight 0
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 3621
+number of black nodes 195 number of grey nodes 3621
+Time=96.3787200451
+
+k=3
+number of nodes 3621 number of edges 9461
+number of edges having fractional weight 0
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 3621
+number of black nodes 68 number of grey nodes 3621
+Time=197.691923141
+
+k=4
+number of nodes 3621 number of edges 9461
+number of edges having fractional weight 0
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 3621
+number of black nodes 33 number of grey nodes 3621
+Time=318.607769012
+
+k=5
+number of nodes 3621 number of edges 9461
+number of edges having fractional weight 0
+number of nodes having zero influence 0
+total estimated coverage after building k power graph 3621
+number of black nodes 17 number of grey nodes 3621
+Time=416.28670001
