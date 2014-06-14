@@ -1,7 +1,7 @@
 import networkx as nx
 from collections import defaultdict
 import operator,sys,timeit
-from find_connected_component_subgraphs import connected_subgraph_gml,connected_subgraph_pajek
+from find_connected_component_subgraphs import connected_subgraph_gml,connected_subgraph_pajek,connected_subgraph_gexf
 
 def idfs_gml(g,start,k): 
     stack=[start] #initialize stack with the seed node
@@ -40,6 +40,27 @@ def idfs_pajek(g,start,k):
                     influencedNodes.append(i)
                     
     return len(influencedNodes),influencedNodes
+
+def idfs_gexf(g,start,k): 
+    stack=[start] #initialize stack with the seed node
+    time=defaultdict(float) #dictionary to keep account of the time spent in influencing upto that node starting from seed node
+    influencedNodes=[] #list to contain the nodes influenced by seed node
+    time.update({start:0}) #time needed to influence start node is 0
+    
+    while stack: #loop until stack is empty
+        
+        v=stack.pop()
+        
+        for i in g.neighbors(v):
+            if time.has_key(i)!=True and time[v]+(1/g[v][i]['count'])<=k: #check if time spent in influencing upto this node is less than one timestamp
+                stack.append(i)
+                time.update({i:time[v]+1/g[v][i]['count']})
+                if(influencedNodes.count(i)==0): #check duplicate
+                    influencedNodes.append(i)
+                    
+    return len(influencedNodes),influencedNodes
+
+
 
 
 def phase2Influence(influenceCount,InfluencedNodes):
@@ -97,16 +118,23 @@ def phase2Influence(influenceCount,InfluencedNodes):
 
 
 if __name__=="__main__":
-    flag=False
+    flag=0
     start=timeit.default_timer()
     #input graph
     inputGraphName=sys.argv[1]
     if inputGraphName[-4:]=='.gml':
-        flag=True
-    if flag==True:
+        flag=1
+    elif inputGraphName[-4:]=='.net':
+        flag=2
+    if flag==1:
         g=connected_subgraph_gml(inputGraphName)
-    else:
+    elif flag==2:
         g=connected_subgraph_pajek(inputGraphName)
+    elif flag==0:
+        g=connected_subgraph_gexf(inputGraphName)
+    else:
+        print "INVALID FILE FORMAT"
+
 
     k=int(sys.argv[2])
     print 'number of nodes '+str(len(g.nodes())),'number of edges '+str(len(g.edges()))
@@ -116,23 +144,42 @@ if __name__=="__main__":
 
     #calculating influence of every node in the graph by calling the idfs function in a loop
     for node in g.nodes():
-        if flag==True:
+        if flag==1:
             count,nodes=idfs_gml(g,node,k) #calling idfs function with parameters: the input graph and the node to be treated as seed node
-        else:
+        elif flag==2:
             count,nodes=idfs_pajek(g,node,k)
+        else:
+            count,nodes=idfs_gexf(g,node,k)
         influenceCount[node]=count
         InfluencedNodes[node]=nodes
     
     #print influenceCount
     #print InfluencedNodes
 
-    count=0
-    for edge in g.edges():
-        node1=edge[0]
-        node2=edge[1]
-        if g[node1][node2][0]['weight']<1:
-            count+=1
-    print 'number of edges having fractional weight '+str(count)
+    if flag==0:
+
+        count=0
+        for edge in g.edges():
+            node1=edge[0]
+            node2=edge[1]
+            if g[node1][node2]['count']<1:
+                count+=1
+    elif flag==1:
+        count=0
+        for edge in g.edges():
+            node1=edge[0]
+            node2=edge[1]
+            if g[node1][node2]['value']<1:
+                count+=1
+    else:
+        count=0
+        for edge in g.edges():
+            node1=edge[0]
+            node2=edge[1]
+            if g[node1][node2][0]['weight']<1:
+                count+=1
+        print 'number of edges having fractional weight '+str(count)
+
 
     #testing a bug
     count=0
