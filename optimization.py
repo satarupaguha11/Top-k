@@ -1,3 +1,4 @@
+#How to run: python optimization.py /path/to/dataset number_of_hops
 import networkx as nx
 from collections import defaultdict
 import operator,sys,timeit
